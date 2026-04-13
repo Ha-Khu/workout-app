@@ -1,0 +1,43 @@
+const express = require('express')
+const router = express.Router()
+const db = require('../db.js')
+const bcrypt = require('bcryptjs')
+
+
+router.post("/register", (req,res)=>{
+  const data = req.body
+  let sql = "INSERT INTO users(firstname, lastname, email, password) VALUES(?, ?, ?, ?)"
+  bcrypt.hash(data.password, 10).then((hashPassword)=>{
+      db.query(sql, [data.firstname, data.lastname, data.email, hashPassword], (err, results)=>{
+    if(err) {
+      res.status(500).json({error: err.message})
+      return
+    }
+    res.json(results)
+   })
+  })
+})
+
+router.post("/login", (req, res)=>{
+  const data = req.body
+  let sql = "SELECT * FROM users WHERE email = ?"
+  db.query(sql, [data.email], (err, results)=>{
+    if(err) {
+      res.status(500).json({error: err.message})
+      return
+    }
+    if(results.length === 0){
+      res.status(401).json({error: "Email neexistuje"})
+      return
+    }
+    bcrypt.compare(data.password, results[0].password).then((match)=>{
+      if(match){
+        res.json({message: "Prihlásenie úspešné"})
+      } else {
+        res.status(401).json({error: "Nesprávne heslo"})
+      }
+    })
+  })
+})
+
+module.exports = router
