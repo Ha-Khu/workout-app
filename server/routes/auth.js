@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db.js')
 const bcrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 
 router.post("/register", (req,res)=>{
   const data = req.body
@@ -32,7 +32,10 @@ router.post("/login", (req, res)=>{
     }
     bcrypt.compare(data.password, results[0].password).then((match)=>{
       if(match){
-        res.json({message: "Prihlásenie úspešné"})
+        const token = jwt.sign({id: results[0].id, email: results[0].email}, 
+          process.env.JWT_SECRET, 
+          {expiresIn: '1d'})
+        res.json({token, message: "Prihlásenie úspešné"})
       } else {
         res.status(401).json({error: "Nesprávne heslo"})
       }
