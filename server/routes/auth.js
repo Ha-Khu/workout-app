@@ -3,6 +3,19 @@ const router = express.Router()
 const db = require('../db.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const verifyToken = require('../middleware/verifyToken.js')
+
+router.get("/me", verifyToken, (req, res)=>{
+  const userID = req.user.id
+  let sql = "SELECT id, firstname, lastname, email, xp, lvl FROM users WHERE id = ?"
+  db.query(sql, [userID], (err, results)=>{
+    if(err){
+      res.status(500).json({error: err.message})
+      return
+    }
+    res.json(results)
+  })
+})
 
 router.post("/register", (req,res)=>{
   const data = req.body
