@@ -5,6 +5,7 @@ import {useNavigate, Link} from 'react-router-dom'
 function Dashboard(){
   
   const [user, setUser] = useState(null)
+  const [workouts, setWorkouts] = useState([])
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -17,6 +18,14 @@ function Dashboard(){
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setUser(response.data[0])
+    })
+  }, [])
+
+  useEffect(()=>{
+    axios.get("http://localhost:5000/api/workout", {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(function(response){
+      setWorkouts(response.data)
     })
   }, [])
 
@@ -81,6 +90,22 @@ function Dashboard(){
             WORKOUT HISTORY
           </Link>
         </div>
+        
+        {/* Workout History */}
+        <div className="mt-6">
+          <p className="text-orange-500 text-[10px] tracking-widest mb-3">RECENT WORKOUTS</p>
+          {workouts.length === 0 ? (
+            <p className="text-gray-500 text-sm text-center">No workouts yet. Start your first workout!</p>
+          ) : (
+            workouts.map((workout) => (
+              <div key={workout.id} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-4 mb-3">
+                <p className="text-orange-500 text-[10px] tracking-widest">WORKOUT</p>
+                <p className="text-white font-semibold">{new Date(workout.date).toLocaleDateString()}</p>
+              </div>
+            ))
+          )}
+        </div>
+        
 
       </div>
     </div>
