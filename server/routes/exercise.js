@@ -52,4 +52,16 @@ router.post("/:id/set", verifyToken, (req, res)=>{
   })
 })
 
+router.delete("/library/:id", verifyToken, (req, res)=>{
+  const id = Number(req.params.id)
+  let sql = "DELETE FROM exercise_library WHERE id = ?"
+  db.query(sql, [id], (err, results)=>{
+    if(err){
+      res.status(500).json({error: err.message})
+      return
+    }
+    res.json(results)
+  })
+})
+
 module.exports = router
