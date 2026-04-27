@@ -33,6 +33,14 @@ function ExerciseLibrary(){
     })
   }
 
+  function handleDelete(id){
+    axios.delete(`http://localhost:5000/api/exercise/library/${id}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(function(response){
+      setExercise(exercise.filter((ex) => ex.id !== id))
+    })
+  }
+
 return(
   <div className="min-h-screen bg-[#0f0f0f]">
     <div className="h-1 bg-orange-500"/>
@@ -80,14 +88,17 @@ return(
         <p className="text-gray-500 text-sm text-center">No exercises yet. Add your first one!</p>
       ) : (
         exercise.map((ex) => (
-          <div key={ex.id} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-4 mb-3 flex justify-between items-center">
-            <div>
-              <p className="text-white font-semibold">{ex.name}</p>
-              <p className="text-gray-500 text-xs tracking-widest">{ex.body_part}</p>
-            </div>
-            <p className="text-orange-500 text-xs tracking-widest">{ex.body_part.toUpperCase()}</p>
+        <div key={ex.id} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-4 mb-3 flex justify-between items-center">
+          <div>
+            <p className="text-white font-semibold">{ex.name}</p>
+            <p className="text-gray-500 text-xs tracking-widest">{ex.body_part.toUpperCase()}</p>
           </div>
-        ))
+          <button onClick={()=> handleDelete(ex.id)}
+            className="text-red-500 hover:text-red-400 text-xs tracking-widest border border-red-500 hover:border-red-400 rounded-lg px-3 py-1 transition cursor-pointer">
+            DELETE
+          </button>
+        </div>
+      ))
       )}
 
     </div>
