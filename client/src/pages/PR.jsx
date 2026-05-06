@@ -43,6 +43,14 @@ function PR() {
     })
   }
 
+  function handleDelete(id){
+    axios.delete(`http://localhost:5000/api/pr/${id}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(function(response){
+      setPrs(prs.filter((ex) => ex.id !== id))
+    })
+  }
+
 return(
   <div className="min-h-screen bg-[#0f0f0f]">
     <div className="h-1 bg-orange-500"/>
@@ -110,6 +118,10 @@ return(
               <p className="text-gray-500 text-xs tracking-widest">{new Date(pr.date).toLocaleDateString()}</p>
             </div>
             <p className="text-orange-500 text-2xl font-bold">{pr.weight}kg</p>
+            <button onClick={()=> handleDelete(pr.id)}
+            className="text-red-500 hover:text-red-400 text-xs tracking-widest border border-red-500 hover:border-red-400 rounded-lg px-3 py-1 transition cursor-pointer">
+            DELETE
+          </button>
           </div>
         ))
       )}

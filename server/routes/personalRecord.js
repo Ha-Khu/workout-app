@@ -29,5 +29,17 @@ router.post("/", verifyToken, (req, res)=>{
   })
 })
 
+router.delete("/:id", verifyToken, (req, res)=>{
+  const id = Number(req.params.id)
+  let sql = "DELETE FROM personal_record WHERE id = ?"
+  db.query(sql, [id],(err, results)=>{
+    if(err){
+      res.status(500).json({error: err.message})
+      return
+    }
+    res.json(results)
+  })
+})
+
 
 module.exports = router
