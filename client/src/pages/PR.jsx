@@ -7,6 +7,7 @@ function PR() {
   const [exerciseId, setExerciseId] = useState("")
   const [weight, setWeight] = useState("")
   const [date, setDate] = useState("")
+  const [exercises, setExercises] = useState([])
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -21,6 +22,26 @@ function PR() {
       setPrs(response.data)
     })
   }, [])
+
+
+  useEffect(()=>{
+    axios.get("http://localhost:5000/api/exercise/library", {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(function(response){
+      setExercises(response.data)
+    })
+  }, [])
+
+  function handleAddPR(){
+    axios.post("http://localhost:5000/api/pr", {exercise_library_id: exerciseId, weight, date}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(function(response){
+      setPrs([...prs, {exercise_library_id: exerciseId, weight, date}])
+      setExerciseId("")
+      setWeight("")
+      setDate("")
+    })
+  }
 }
 
 export default PR
