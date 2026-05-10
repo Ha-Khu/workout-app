@@ -25,7 +25,14 @@ router.post("/", verifyToken, (req, res)=>{
       res.status(500).json({error: err.message})
       return
     }
-    res.json(results)
+    let sqlXP = "UPDATE users SET xp = xp + 50, lvl = FLOOR((xp + 50) / 500) WHERE id = ?"
+    db.query(sqlXP, [userID], (err)=>{
+      if(err){
+        res.status(500).json({error: err.message})
+        return
+      }
+      res.json(results)
+    })
   })
 })
 
