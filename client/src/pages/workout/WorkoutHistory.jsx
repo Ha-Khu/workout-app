@@ -23,6 +23,7 @@ function WorkoutHistory(){
   }, [])
 
   function handleDelete(id){
+    if(!window.confirm("Are you sure you want to delete this workout?")) return
     axios.delete(`http://localhost:5000/api/workout/${id}`, {
       headers: {Authorization: `Bearer ${token}`}
     }).then(()=>{

@@ -7,6 +7,7 @@ function Dashboard(){
   const [user, setUser] = useState(null)
   const [workouts, setWorkouts] = useState([])
   const [loading, setLoading] = useState(true)
+  const progress = (user?.xp % 500) / 500 * 100
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -75,6 +76,11 @@ function Dashboard(){
               <p className="text-gray-500 text-xs tracking-widest">XP</p>
               <p className="text-white text-3xl font-bold">{user?.xp}</p>
             </div>
+            <div className="w-full bg-[#2a2a2a] rounded-full h-2 mt-3">
+              <div className="bg-orange-500 h-2 rounded-full transition-all"
+                style={{width: `${progress}%`}}/>
+           </div>
+            <p className="text-gray-500 text-xs mt-1">{user?.xp % 500}/500 XP to next level</p>
           </div>
         </div>
 

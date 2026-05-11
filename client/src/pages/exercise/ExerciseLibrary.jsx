@@ -38,6 +38,7 @@ function ExerciseLibrary(){
   }
 
   function handleDelete(id){
+    if(!window.confirm("Are you sure you want to delete this workout?")) return
     axios.delete(`http://localhost:5000/api/exercise/library/${id}`, {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
