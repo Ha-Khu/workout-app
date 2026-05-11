@@ -8,6 +8,7 @@ function PR() {
   const [weight, setWeight] = useState("")
   const [date, setDate] = useState("")
   const [exercises, setExercises] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -20,6 +21,7 @@ function PR() {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setPrs(response.data)
+      setLoading(false)
     })
   }, [])
 
@@ -50,6 +52,15 @@ function PR() {
       setPrs(prs.filter((ex) => ex.id !== id))
     })
   }
+
+if(loading) return(
+  <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
+  <div className="text-center">
+    <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"/>
+    <p className="text-orange-500 text-[10px] tracking-widest">LOADING...</p>
+  </div>
+</div>
+)
 
 return(
   <div className="min-h-screen bg-[#0f0f0f]">

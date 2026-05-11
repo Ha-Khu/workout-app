@@ -9,6 +9,7 @@ function NewWorkout(){
   const [weight, setWeight] = useState("")
   const [reps, setReps] = useState("")
   const [sets, setSets] = useState({})
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -21,6 +22,7 @@ function NewWorkout(){
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setExercise(response.data)
+      setLoading(false)
     })
   }, [])
 
@@ -58,6 +60,15 @@ function NewWorkout(){
     setWeight("")
     setReps("")
   }
+
+if(loading) return(
+  <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
+  <div className="text-center">
+    <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"/>
+    <p className="text-orange-500 text-[10px] tracking-widest">LOADING...</p>
+  </div>
+</div>
+)
 
 return(
     <div className="min-h-screen bg-[#0f0f0f]">

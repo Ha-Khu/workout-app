@@ -4,6 +4,7 @@ import {useNavigate, Link} from 'react-router-dom'
 
 function WorkoutHistory(){
   const [workouts, setWorkouts] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -16,6 +17,7 @@ function WorkoutHistory(){
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setWorkouts(response.data)
+      setLoading(false)
     })
   }, [])
 
@@ -26,6 +28,15 @@ function WorkoutHistory(){
       setWorkouts(workouts.filter((workout)=> workout.id !== id))
     })
   }
+
+if(loading) return(
+  <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
+  <div className="text-center">
+    <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"/>
+    <p className="text-orange-500 text-[10px] tracking-widest">LOADING...</p>
+  </div>
+</div>
+)
 
 return(
   <div className="min-h-screen bg-[#0f0f0f]">
