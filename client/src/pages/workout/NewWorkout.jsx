@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate, Link} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function NewWorkout(){
   const [date, setDate] = useState("")
@@ -38,6 +39,7 @@ function NewWorkout(){
         })
       })
       navigate('/dashboard')
+      toast.success("Workout saved!")
     })
   }
 

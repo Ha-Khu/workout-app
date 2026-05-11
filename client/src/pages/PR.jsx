@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate, Link} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function PR() {
   const [prs, setPrs] = useState([])
@@ -43,6 +44,7 @@ function PR() {
       setWeight("")
       setDate("")
     })
+    toast.success("PR saved!")
   }
 
   function handleDelete(id){
@@ -51,6 +53,7 @@ function PR() {
     }).then(function(response){
       setPrs(prs.filter((ex) => ex.id !== id))
     })
+    toast.success("PR deleted!")
   }
 
 if(loading) return(

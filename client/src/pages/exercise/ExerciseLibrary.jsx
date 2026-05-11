@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate, Link} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function ExerciseLibrary(){
   
@@ -33,6 +34,7 @@ function ExerciseLibrary(){
       setName("")
       setBodyPart("")
     })
+    toast.success("Exercise added!")
   }
 
   function handleDelete(id){
@@ -41,6 +43,7 @@ function ExerciseLibrary(){
     }).then(function(response){
       setExercise(exercise.filter((ex) => ex.id !== id))
     })
+    toast.success("Exercise deleted!")
   }
 
 if(loading) return(

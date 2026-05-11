@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate, Link} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function WorkoutHistory(){
   const [workouts, setWorkouts] = useState([])
@@ -27,6 +28,7 @@ function WorkoutHistory(){
     }).then(()=>{
       setWorkouts(workouts.filter((workout)=> workout.id !== id))
     })
+    toast.success("Workout deleted!")
   }
 
 if(loading) return(
