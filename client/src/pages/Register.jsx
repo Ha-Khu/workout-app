@@ -11,7 +11,7 @@ function Register(){
   const navigate = useNavigate()
 
   function handleRegister(){
-    axios.post("http://localhost:5000/api/auth/register", {firstname, lastname, email, password}).
+    axios.post("https://workout-app-h8kq.onrender.com/api/auth/register", {firstname, lastname, email, password}).
     then(function(response){
       navigate('/login')
     })

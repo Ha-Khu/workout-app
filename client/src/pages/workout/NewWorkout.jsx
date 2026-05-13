@@ -19,7 +19,7 @@ function NewWorkout(){
       navigate("/login")
       return
     }
-    axios.get("http://localhost:5000/api/exercise/library", {
+    axios.get("https://workout-app-h8kq.onrender.com/api/exercise/library", {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setExercise(response.data)
@@ -28,13 +28,13 @@ function NewWorkout(){
   }, [])
 
   function handleSaveWorkout(){
-    axios.post("http://localhost:5000/api/workout", {date}, {
+    axios.post("https://workout-app-h8kq.onrender.com/api/workout", {date}, {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then(function(response){
       const workoutID = response.data.insertId
       selectedExercises.forEach((exercise)=>{
-        axios.post("http://localhost:5000/api/exercise", {workout_id: workoutID, exercise_library_id: exercise.id}, {
+        axios.post("https://workout-app-h8kq.onrender.com/api/exercise", {workout_id: workoutID, exercise_library_id: exercise.id}, {
           headers: {Authorization: `Bearer ${token}`}
         })
       })

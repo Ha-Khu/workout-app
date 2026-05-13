@@ -9,7 +9,7 @@ function Login(){
   const navigate = useNavigate()
 
   function handleLogin(){
-    axios.post("http://localhost:5000/api/auth/login", {email, password})
+    axios.post("https://workout-app-h8kq.onrender.com/api/auth/login", {email, password})
     .then(function(response){
       localStorage.setItem('token', response.data.token)
       navigate("/dashboard")

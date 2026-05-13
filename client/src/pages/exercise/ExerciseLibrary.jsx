@@ -17,7 +17,7 @@ function ExerciseLibrary(){
       navigate("/login")
       return
     }
-    axios.get("http://localhost:5000/api/exercise/library",{
+    axios.get("https://workout-app-h8kq.onrender.com/api/exercise/library",{
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setExercise(response.data)
@@ -26,7 +26,7 @@ function ExerciseLibrary(){
   }, [])
 
   function handleExercise(){
-    axios.post("http://localhost:5000/api/exercise/library", {name, body_part: bodyPart},{
+    axios.post("https://workout-app-h8kq.onrender.com/api/exercise/library", {name, body_part: bodyPart},{
       headers: {Authorization: `Bearer ${token}`}
     })
     .then(function(response){
@@ -39,7 +39,7 @@ function ExerciseLibrary(){
 
   function handleDelete(id){
     if(!window.confirm("Are you sure you want to delete this workout?")) return
-    axios.delete(`http://localhost:5000/api/exercise/library/${id}`, {
+    axios.delete(`https://workout-app-h8kq.onrender.com/api/exercise/library/${id}`, {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setExercise(exercise.filter((ex) => ex.id !== id))

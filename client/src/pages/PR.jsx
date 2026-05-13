@@ -18,7 +18,7 @@ function PR() {
       navigate('/login')
       return
     }
-    axios.get("http://localhost:5000/api/pr", {
+    axios.get("https://workout-app-h8kq.onrender.com/api/pr", {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setPrs(response.data)
@@ -28,7 +28,7 @@ function PR() {
 
 
   useEffect(()=>{
-    axios.get("http://localhost:5000/api/exercise/library", {
+    axios.get("https://workout-app-h8kq.onrender.com/api/exercise/library", {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setExercises(response.data)
@@ -36,7 +36,7 @@ function PR() {
   }, [])
 
   function handleAddPR(){
-    axios.post("http://localhost:5000/api/pr", {exercise_library_id: exerciseId, weight, date}, {
+    axios.post("https://workout-app-h8kq.onrender.com/api/pr", {exercise_library_id: exerciseId, weight, date}, {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setPrs([...prs, {exercise_library_id: exerciseId, weight, date}])
@@ -49,7 +49,7 @@ function PR() {
 
   function handleDelete(id){
     if(!window.confirm("Are you sure you want to delete this workout?")) return
-    axios.delete(`http://localhost:5000/api/pr/${id}`, {
+    axios.delete(`https://workout-app-h8kq.onrender.com/api/pr/${id}`, {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setPrs(prs.filter((ex) => ex.id !== id))

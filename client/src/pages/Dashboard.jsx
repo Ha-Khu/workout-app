@@ -16,7 +16,7 @@ function Dashboard(){
       navigate("/login")
       return
     }
-    axios.get("http://localhost:5000/api/auth/me", {
+    axios.get("https://workout-app-h8kq.onrender.com/api/auth/me", {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setUser(response.data[0])
@@ -25,7 +25,7 @@ function Dashboard(){
   }, [])
 
   useEffect(()=>{
-    axios.get("http://localhost:5000/api/workout", {
+    axios.get("https://workout-app-h8kq.onrender.com/api/workout", {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setWorkouts(response.data)

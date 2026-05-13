@@ -14,7 +14,7 @@ function WorkoutHistory(){
       navigate('/login')
       return
     }
-    axios.get("http://localhost:5000/api/workout", {
+    axios.get("https://workout-app-h8kq.onrender.com/api/workout", {
       headers: {Authorization: `Bearer ${token}`}
     }).then(function(response){
       setWorkouts(response.data)
@@ -24,7 +24,7 @@ function WorkoutHistory(){
 
   function handleDelete(id){
     if(!window.confirm("Are you sure you want to delete this workout?")) return
-    axios.delete(`http://localhost:5000/api/workout/${id}`, {
+    axios.delete(`https://workout-app-h8kq.onrender.com/api/workout/${id}`, {
       headers: {Authorization: `Bearer ${token}`}
     }).then(()=>{
       setWorkouts(workouts.filter((workout)=> workout.id !== id))
