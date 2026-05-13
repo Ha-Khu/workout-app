@@ -4,7 +4,7 @@ A full-stack workout tracking application built with React, Node.js, and MySQL.
 
 ## 🚀 Live Demo
 
-_Coming soon..._
+[View App](https://workout-app-five-ecru.vercel.app)
 
 ## 🛠️ Tech Stack
 
