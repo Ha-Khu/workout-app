@@ -16,7 +16,7 @@ function Register(){
       navigate('/login')
     })
     .catch((err)=>{
-      setError("Registrácia zlyhala, skús znova")
+      setError(err.response?.data?.error || "Registration failed, try again")
     })
   }
 

@@ -19,15 +19,26 @@ router.get("/me", verifyToken, (req, res)=>{
 
 router.post("/register", (req,res)=>{
   const data = req.body
-  let sql = "INSERT INTO users(firstname, lastname, email, password) VALUES(?, ?, ?, ?)"
-  bcrypt.hash(data.password, 10).then((hashPassword)=>{
-      db.query(sql, [data.firstname, data.lastname, data.email, hashPassword], (err, results)=>{
-    if(err) {
+  let checkEmail = "SELECT * FROM users WHERE email = ?"
+  db.query(checkEmail, [data.email], (err, results)=>{
+    if(err){
       res.status(500).json({error: err.message})
       return
     }
-    res.json(results)
-   })
+    if(results.length > 0){
+      res.status(400).json({error: "Email already exists"})
+      return
+    }
+      let sql = "INSERT INTO users(firstname, lastname, email, password) VALUES(?, ?, ?, ?)"
+      bcrypt.hash(data.password, 10).then((hashPassword)=>{
+        db.query(sql, [data.firstname, data.lastname, data.email, hashPassword], (err, results)=>{
+        if(err) {
+          res.status(500).json({error: err.message})
+          return
+        }
+        res.json(results)
+      })
+    })
   })
 })
 
