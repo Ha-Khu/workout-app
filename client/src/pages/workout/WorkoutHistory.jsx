@@ -63,10 +63,10 @@ return(
       {workouts.length === 0 ? (
         <p className="text-gray-500 text-sm text-center">No workouts yet. Start your first workout!</p>
       ) : (
-        workouts.map((workout) => (
+        workouts.map((workout, index) => (
           <div key={workout.id} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-4 mb-3 flex justify-between items-center">
             <div>
-              <p className="text-white font-semibold">Workout #{workout.id}</p>
+              <p className="text-white font-semibold">Workout #{index + 1}</p>
               <p className="text-gray-500 text-xs tracking-widest">{new Date(workout.date).toLocaleDateString()}</p>
             </div>
             <button onClick={()=> handleDelete(workout.id)}
